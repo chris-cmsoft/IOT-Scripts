@@ -18,6 +18,9 @@ GPIO.setup(14, GPIO.OUT)
 GPIO.setup(15, GPIO.OUT)
 GPIO.setup(18, GPIO.OUT)
 
+GPIO.setup(21, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+GPIO.setup(20, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+
 def lightsarray1():
     current = 2
     while True:
@@ -54,12 +57,10 @@ p1.start()
 p2 = Process(target=lightsarray2)
 p2.start()
 
-# Sleep for a little
-time.sleep(5)
-
-# Terminate the open processes
-p1.terminate()
-p2.terminate()
+while True:
+    print GPIO.input(21)
+    print GPIO.input(20)
+    time.sleep(1)
 
 # Exit the program
 exit
